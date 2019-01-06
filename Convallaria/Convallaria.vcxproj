@@ -26,17 +26,17 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -69,13 +69,22 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)Lua\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lua\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)Lua\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lua\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>CONVALLARIA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +103,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>CONVALLARIA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -115,6 +130,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Lua\Inc\lapi.h" />
+    <ClInclude Include="..\Lua\Inc\lauxlib.h" />
+    <ClInclude Include="..\Lua\Inc\lcode.h" />
+    <ClInclude Include="..\Lua\Inc\lctype.h" />
+    <ClInclude Include="..\Lua\Inc\ldebug.h" />
+    <ClInclude Include="..\Lua\Inc\ldo.h" />
+    <ClInclude Include="..\Lua\Inc\lfunc.h" />
+    <ClInclude Include="..\Lua\Inc\lgc.h" />
+    <ClInclude Include="..\Lua\Inc\llex.h" />
+    <ClInclude Include="..\Lua\Inc\llimits.h" />
+    <ClInclude Include="..\Lua\Inc\lmem.h" />
+    <ClInclude Include="..\Lua\Inc\lobject.h" />
+    <ClInclude Include="..\Lua\Inc\lopcodes.h" />
+    <ClInclude Include="..\Lua\Inc\lparser.h" />
+    <ClInclude Include="..\Lua\Inc\lprefix.h" />
+    <ClInclude Include="..\Lua\Inc\lstate.h" />
+    <ClInclude Include="..\Lua\Inc\lstring.h" />
+    <ClInclude Include="..\Lua\Inc\ltable.h" />
+    <ClInclude Include="..\Lua\Inc\ltm.h" />
+    <ClInclude Include="..\Lua\Inc\lua.h" />
+    <ClInclude Include="..\Lua\Inc\lua.hpp" />
+    <ClInclude Include="..\Lua\Inc\luaconf.h" />
+    <ClInclude Include="..\Lua\Inc\lualib.h" />
+    <ClInclude Include="..\Lua\Inc\lundump.h" />
+    <ClInclude Include="..\Lua\Inc\lvm.h" />
+    <ClInclude Include="..\Lua\Inc\lzio.h" />
+    <ClInclude Include="ConvallariaLua.h" />
+    <ClInclude Include="ConvallariaLuaMsg.h" />
+    <ClInclude Include="ConvallariaLuaType.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConvallariaLua.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Convallaria.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
